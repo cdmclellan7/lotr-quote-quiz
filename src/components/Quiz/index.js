@@ -5,11 +5,6 @@ import Quote from "../Quote";
 const GET_NEW_QUIZ = "GET_NEW_QUIZ";
 
 function Quiz({ quotes, characters, movies }) {
-	/*
-	const [currentQuote, setCurrentQuote] = useState(null);
-	const [currentMultipleChoice, setCurrentMultipleChoice] = useState();
-    */
-
 	const [currentQuizData, dispatch] = useReducer(quizReducer, null);
 
 	function quizReducer(state, action) {
