@@ -94,8 +94,10 @@ function Quiz({ quotes, characters, movies }) {
 	}
 
 	function answerQuestion(answeredCorrectly) {
-		dispatch({ type: SHOW_ANSWERS });
-		dispatch({ type: UPDATE_SCORE, answeredCorrectly });
+		if (quizState.isQuestionActive) {
+			dispatch({ type: SHOW_ANSWERS });
+			dispatch({ type: UPDATE_SCORE, answeredCorrectly });
+		}
 	}
 
 	return (
