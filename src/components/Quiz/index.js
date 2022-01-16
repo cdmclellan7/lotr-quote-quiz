@@ -43,7 +43,16 @@ function Quiz({ quotes, characters, movies }) {
 
 	function getRandomQuote() {
 		const randomNum = Math.floor(Math.random() * quotes.length);
-		return quotes[randomNum];
+		const quote = quotes[randomNum];
+
+		//recursively filter out quotes that are less than 3 words or are said by a "minor character"
+		if (
+			quote.dialog.split(" ").length > 2 &&
+			getCharacterNameFromId(quote.character) !== "MINOR_CHARACTER"
+		) {
+			return quote;
+		}
+		return getRandomQuote();
 	}
 
 	function getRandomCharacter() {
