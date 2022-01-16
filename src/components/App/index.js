@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import Quiz from "../Quiz";
+
 import "./App.css";
 
 function App() {
@@ -75,8 +77,13 @@ function App() {
 	return (
 		<div className="App">
 			<h1>Welcome to the LOTR Movie Quote Quiz</h1>
-			<p>{JSON.stringify(movieData)}</p>
-			<p>{JSON.stringify(quoteData)}</p>
+			{quoteData && characterData && movieData && (
+				<Quiz
+					quotes={quoteData}
+					characters={characterData}
+					movies={movieData}
+				/>
+			)}
 		</div>
 	);
 }
