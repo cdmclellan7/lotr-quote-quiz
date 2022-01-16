@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-
+import MultipleChoice from "../MultipleChoice";
 import Quote from "../Quote";
 
 const GET_NEW_QUIZ = "GET_NEW_QUIZ";
@@ -50,10 +50,9 @@ function Quiz({ quotes, characters, movies }) {
 			{currentQuizData && (
 				<Quote text={currentQuizData.currentQuote.dialog} />
 			)}
-			{currentQuizData &&
-				currentQuizData.allChoices.map((choice) => {
-					return <p key={choice.name}>{choice.name}</p>;
-				})}
+			{currentQuizData && (
+				<MultipleChoice allChoices={currentQuizData.allChoices} />
+			)}
 			<button onClick={() => dispatch({ type: GET_NEW_QUIZ })}>
 				Get New Quote
 			</button>
