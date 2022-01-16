@@ -31,7 +31,11 @@ function Quiz({ quotes, characters, movies }) {
 			case SHOW_ANSWERS:
 				return { ...state, isQuestionActive: false };
 			case UPDATE_SCORE:
-				return { ...state, score: 100 };
+				return {
+					...state,
+					score: state.score + (action.answeredCorrectly ? 1 : 0),
+					total: state.total + 1,
+				};
 			default:
 				return state;
 		}
@@ -63,13 +67,16 @@ function Quiz({ quotes, characters, movies }) {
 		return choices;
 	}
 
-	function answerQuestion() {
+	function answerQuestion(answeredCorrectly) {
 		dispatch({ type: SHOW_ANSWERS });
-		dispatch({ type: UPDATE_SCORE });
+		dispatch({ type: UPDATE_SCORE, answeredCorrectly });
 	}
 
 	return (
 		<div id="quiz">
+			<p>
+				Score: {quizState.score}/{quizState.total}
+			</p>
 			{quizState.currentQuizData && (
 				<Quote text={quizState.currentQuizData.currentQuote.dialog} />
 			)}
@@ -77,7 +84,7 @@ function Quiz({ quotes, characters, movies }) {
 				<MultipleChoice
 					allChoices={quizState.currentQuizData.allChoices}
 					isShowingAnswers={!quizState.isQuestionActive}
-					showAnswers={answerQuestion}
+					answerQuestion={answerQuestion}
 				/>
 			)}
 			{quizState.currentQuizData && quizState.isQuestionActive ? (

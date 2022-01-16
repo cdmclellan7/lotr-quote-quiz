@@ -1,7 +1,7 @@
-function Choice({ text, isCorrect, showAnswers, isShowingAnswers }) {
+function Choice({ text, isCorrect, answerQuestion, isShowingAnswers }) {
 	return (
 		<button
-			onClick={() => showAnswers(isCorrect)}
+			onClick={() => answerQuestion(isCorrect)}
 			style={
 				isShowingAnswers
 					? { backgroundColor: isCorrect ? "green" : "red" }
