@@ -1,3 +1,5 @@
+import Choice from "../Choice";
+
 function MultipleChoice({ allChoices }) {
 	function makeSortedOrder(arr) {
 		return arr.sort((a, b) => {
@@ -17,14 +19,11 @@ function MultipleChoice({ allChoices }) {
 		<div id="multiple-choice">
 			{makeSortedOrder(allChoices).map((choice) => {
 				return (
-					<p
+					<Choice
 						key={choice.name}
-						style={{
-							backgroundColor: choice.isCorrect ? "green" : "red",
-						}}
-					>
-						{choice.name}
-					</p>
+						text={choice.name}
+						isCorrect={choice.isCorrect}
+					/>
 				);
 			})}
 		</div>
