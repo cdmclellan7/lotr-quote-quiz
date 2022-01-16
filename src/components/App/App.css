@@ -1,3 +1,22 @@
 .App {
-  text-align: center;
+	text-align: center;
+}
+
+body {
+	background-image: radial-gradient(orange, black, black);
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#header {
+	color: white;
+}
+
+#quiz {
+	background-color: rgba(255, 255, 255, 0.52);
+	padding: 2em;
+	border-radius: 50px;
+	max-width: 50vw;
 }
