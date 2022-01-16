@@ -56,8 +56,15 @@ function Quiz({ quotes, characters, movies }) {
 	}
 
 	function getRandomCharacter() {
-		const randomNum = Math.floor(Math.random() * characters.length);
-		return characters[randomNum];
+		const randomNum = Math.floor(Math.random() * quotes.length);
+		const characterId = quotes[randomNum].character;
+		const name = getCharacterNameFromId(characterId);
+
+		//recuvsively filter out characters with the name "MINOR_CHARACTER"
+		if (name !== "MINOR_CHARACTER") {
+			return name;
+		}
+		return getRandomCharacter();
 	}
 
 	function getCharacterNameFromId(id) {
@@ -65,11 +72,21 @@ function Quiz({ quotes, characters, movies }) {
 		return character.name;
 	}
 
+	function checkForNameInChoices(name, array) {
+		let bool = false;
+		array.forEach((obj) => {
+			if (obj.name === name) {
+				bool = true;
+			}
+		});
+		return bool;
+	}
+
 	function getRandomChoices(name) {
 		const choices = [{ name: name, isCorrect: true }];
 		while (choices.length < 4) {
-			let newCharacterName = getRandomCharacter().name;
-			if (!choices.includes(newCharacterName)) {
+			let newCharacterName = getRandomCharacter();
+			if (!checkForNameInChoices(newCharacterName, choices)) {
 				choices.push({ name: newCharacterName, isCorrect: false });
 			}
 		}
