@@ -4,9 +4,14 @@ import Quote from "../Quote";
 
 const GET_NEW_QUIZ = "GET_NEW_QUIZ";
 const SHOW_ANSWERS = "SNOW_ANSWERS";
+const UPDATE_SCORE = "UPDATE_SCORE";
 
 function Quiz({ quotes, characters, movies }) {
-	const [currentQuizData, dispatch] = useReducer(quizReducer, null);
+	const [quizState, dispatch] = useReducer(quizReducer, {
+		currentQuizData: null,
+		score: 0,
+		total: 0,
+	});
 
 	function quizReducer(state, action) {
 		switch (action.type) {
@@ -15,13 +20,18 @@ function Quiz({ quotes, characters, movies }) {
 				const answer = getCharacterNameFromId(currentQuote.character);
 				const allChoices = getRandomChoices(answer);
 				return {
-					currentQuote,
-					answer,
-					allChoices,
+					...state,
+					currentQuizData: {
+						currentQuote,
+						answer,
+						allChoices,
+					},
 					isQuestionActive: true,
 				};
 			case SHOW_ANSWERS:
 				return { ...state, isQuestionActive: false };
+			case UPDATE_SCORE:
+				return { ...state, score: 100 };
 			default:
 				return state;
 		}
@@ -53,23 +63,27 @@ function Quiz({ quotes, characters, movies }) {
 		return choices;
 	}
 
+	function answerQuestion() {
+		dispatch({ type: SHOW_ANSWERS });
+		dispatch({ type: UPDATE_SCORE });
+	}
+
 	return (
 		<div id="quiz">
-			{currentQuizData && (
-				<Quote text={currentQuizData.currentQuote.dialog} />
+			{quizState.currentQuizData && (
+				<Quote text={quizState.currentQuizData.currentQuote.dialog} />
 			)}
-			{currentQuizData && (
+			{quizState.currentQuizData && (
 				<MultipleChoice
-					allChoices={currentQuizData.allChoices}
-					isShowingAnswers={!currentQuizData.isQuestionActive}
-					showAnswers={() => dispatch({ type: SHOW_ANSWERS })}
+					allChoices={quizState.currentQuizData.allChoices}
+					isShowingAnswers={!quizState.isQuestionActive}
+					showAnswers={answerQuestion}
 				/>
 			)}
-			{currentQuizData && currentQuizData.isQuestionActive ? (
+			{quizState.currentQuizData && quizState.isQuestionActive ? (
 				<></>
 			) : (
 				<button onClick={() => dispatch({ type: GET_NEW_QUIZ })}>
-					{" "}
 					Get New Quote
 				</button>
 			)}
