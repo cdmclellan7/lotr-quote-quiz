@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import Quote from "../Quote";
+
 function Quiz({ quotes, characters, movies }) {
 	const [currentQuote, setCurrentQuote] = useState(null);
 
@@ -10,7 +12,7 @@ function Quiz({ quotes, characters, movies }) {
 
 	return (
 		<div id="quiz">
-			{currentQuote && <p>{currentQuote.dialog}</p>}
+			{currentQuote && <Quote text={currentQuote.dialog} />}
 			<button onClick={getRandomQuote}>Get New Quote</button>
 		</div>
 	);
