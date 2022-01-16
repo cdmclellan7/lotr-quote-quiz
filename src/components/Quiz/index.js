@@ -18,10 +18,10 @@ function Quiz({ quotes, characters, movies }) {
 					currentQuote,
 					answer,
 					allChoices,
-					isShowingAnswers: false,
+					isQuestionActive: true,
 				};
 			case SHOW_ANSWERS:
-				return { ...state, isShowingAnswers: true };
+				return { ...state, isQuestionActive: false };
 			default:
 				return state;
 		}
@@ -61,13 +61,18 @@ function Quiz({ quotes, characters, movies }) {
 			{currentQuizData && (
 				<MultipleChoice
 					allChoices={currentQuizData.allChoices}
-					isShowingAnswers={currentQuizData.isShowingAnswers}
+					isShowingAnswers={!currentQuizData.isQuestionActive}
 					showAnswers={() => dispatch({ type: SHOW_ANSWERS })}
 				/>
 			)}
-			<button onClick={() => dispatch({ type: GET_NEW_QUIZ })}>
-				Get New Quote
-			</button>
+			{currentQuizData && currentQuizData.isQuestionActive ? (
+				<></>
+			) : (
+				<button onClick={() => dispatch({ type: GET_NEW_QUIZ })}>
+					{" "}
+					Get New Quote
+				</button>
+			)}
 		</div>
 	);
 }
