@@ -3,6 +3,7 @@ import MultipleChoice from "../MultipleChoice";
 import Quote from "../Quote";
 
 const GET_NEW_QUIZ = "GET_NEW_QUIZ";
+const SHOW_ANSWERS = "SNOW_ANSWERS";
 
 function Quiz({ quotes, characters, movies }) {
 	const [currentQuizData, dispatch] = useReducer(quizReducer, null);
@@ -13,7 +14,14 @@ function Quiz({ quotes, characters, movies }) {
 				const currentQuote = getRandomQuote();
 				const answer = getCharacterNameFromId(currentQuote.character);
 				const allChoices = getRandomChoices(answer);
-				return { currentQuote, answer, allChoices };
+				return {
+					currentQuote,
+					answer,
+					allChoices,
+					isShowingAnswers: false,
+				};
+			case SHOW_ANSWERS:
+				return { ...state, isShowingAnswers: true };
 			default:
 				return state;
 		}
@@ -51,7 +59,11 @@ function Quiz({ quotes, characters, movies }) {
 				<Quote text={currentQuizData.currentQuote.dialog} />
 			)}
 			{currentQuizData && (
-				<MultipleChoice allChoices={currentQuizData.allChoices} />
+				<MultipleChoice
+					allChoices={currentQuizData.allChoices}
+					isShowingAnswers={currentQuizData.isShowingAnswers}
+					showAnswers={() => dispatch({ type: SHOW_ANSWERS })}
+				/>
 			)}
 			<button onClick={() => dispatch({ type: GET_NEW_QUIZ })}>
 				Get New Quote

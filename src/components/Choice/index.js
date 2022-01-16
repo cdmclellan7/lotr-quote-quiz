@@ -1,12 +1,16 @@
-function Choice({ text, isCorrect }) {
-	function handleClick(e) {
-		if (isCorrect) {
-			e.target.style.backgroundColor = "green";
-		} else {
-			e.target.style.backgroundColor = "red";
-		}
-	}
-	return <button onClick={handleClick}>{text}</button>;
+function Choice({ text, isCorrect, showAnswers, isShowingAnswers }) {
+	return (
+		<button
+			onClick={showAnswers}
+			style={
+				isShowingAnswers
+					? { backgroundColor: isCorrect ? "green" : "red" }
+					: {}
+			}
+		>
+			{text}
+		</button>
+	);
 }
 
 export default Choice;

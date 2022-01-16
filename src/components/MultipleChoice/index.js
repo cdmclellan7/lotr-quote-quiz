@@ -1,6 +1,6 @@
 import Choice from "../Choice";
 
-function MultipleChoice({ allChoices }) {
+function MultipleChoice({ allChoices, showAnswers, isShowingAnswers }) {
 	function makeSortedOrder(arr) {
 		return arr.sort((a, b) => {
 			const nameA = a.name.toUpperCase();
@@ -23,6 +23,8 @@ function MultipleChoice({ allChoices }) {
 						key={choice.name}
 						text={choice.name}
 						isCorrect={choice.isCorrect}
+						showAnswers={showAnswers}
+						isShowingAnswers={isShowingAnswers}
 					/>
 				);
 			})}
