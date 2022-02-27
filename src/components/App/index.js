@@ -76,7 +76,9 @@ function App() {
 	}, []);
 	return (
 		<div className="App">
-			<h1 id="header">Welcome to the LOTR Movie Quote Quiz</h1>
+			<h1 id="header">
+				Welcome to the Lord of the Rings Movie Quote Quiz
+			</h1>
 
 			{quoteData && characterData && movieData ? (
 				<Quiz
