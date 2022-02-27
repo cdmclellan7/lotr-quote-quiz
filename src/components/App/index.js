@@ -77,12 +77,18 @@ function App() {
 	return (
 		<div className="App">
 			<h1 id="header">Welcome to the LOTR Movie Quote Quiz</h1>
-			{quoteData && characterData && movieData && (
+
+			{quoteData && characterData && movieData ? (
 				<Quiz
 					quotes={quoteData}
 					characters={characterData}
 					movies={movieData}
 				/>
+			) : (
+				<p id="loading-message">
+					Loading... if nothing loads, then my API access token has
+					probably expired... :(
+				</p>
 			)}
 		</div>
 	);
